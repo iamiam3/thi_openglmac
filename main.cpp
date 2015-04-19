@@ -52,6 +52,14 @@ int main(int argc, char **argv) {
 
 	Shader shader("./res/basicShader");
 
+	// Transformation
+	glm::mat4 identityMatrix = glm::mat4(1.0f);
+	// ModelViewProjection-Matrix
+	glm::mat4 mvp = identityMatrix;
+	// Send Matrix to the shader
+	GLuint MatrixID = glGetUniformLocation(shader.getShaderProgramID(), "mvp");
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+
 	while ( !m_window.IsClosed() ) {
 		//m_window.Clear(0.0f, 0.15f, 0.3f, 1.0f); // blue
 		m_window.Clear(0.5f, 0.5f, 0.5f, 0.5f); // white
