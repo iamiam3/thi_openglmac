@@ -25,8 +25,10 @@ Shader::Shader(const std::string& fileName) {
 	CheckShaderError(m_program, GL_LINK_STATUS, true, "Error: Program linking failed");
 
 	// Check if program is valid
-	glValidateProgram(m_program);
-	CheckShaderError(m_program, GL_VALIDATE_STATUS, true, "Error: Program is invalid");
+	// Can only be done after vertex array object is bound
+	// TODO Add the validation to the mesh (After the Vertex Array Object is bound)
+	//glValidateProgram(m_program);
+	//CheckShaderError(m_program, GL_VALIDATE_STATUS, true, "Error: Program is invalid");
 }
 
 Shader::~Shader() {

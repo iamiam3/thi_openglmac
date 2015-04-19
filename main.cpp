@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 
 	Window m_window(1024,768,"THI - Seminar - OpenGL Beispiel");
 
-
+	Shader shader("./res/basicShader");
 
 	// TODO MESH CLASS
 	// TO BE EXPORTED INTO A MESH CLASS
@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
 
 	//#######################################################
 
-	Shader shader("./res/basicShader");
+
 
 	float myAngle = 0.0f;
 	int rotations = 2;
