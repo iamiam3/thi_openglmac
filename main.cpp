@@ -10,6 +10,7 @@
 #include "m_classes/vertex.h"
 #include "m_classes/shader.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 
 int main(int argc, char **argv) {
@@ -52,19 +53,40 @@ int main(int argc, char **argv) {
 
 	Shader shader("./res/basicShader");
 
-	// Transformation
-	glm::mat4 identityMatrix = glm::mat4(1.0f);
-	// ModelViewProjection-Matrix
-	glm::mat4 mvp = identityMatrix;
-	// Send Matrix to the shader
-	GLuint MatrixID = glGetUniformLocation(shader.getShaderProgramID(), "mvp");
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	float myAngle = 0.0f;
+	int rotations = 0;
 
 	while ( !m_window.IsClosed() ) {
 		//m_window.Clear(0.0f, 0.15f, 0.3f, 1.0f); // blue
 		m_window.Clear(0.5f, 0.5f, 0.5f, 0.5f); // white
 
 		shader.Bind();
+
+		// TRANSFORMATION
+		// Projection matrix
+		glm::mat4 projection = glm::perspective(20.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+		// Camera matrix
+		glm::mat4 view = glm::lookAt(
+				glm::vec3(4,3,3), // Camera is at (4,3,3)
+				glm::vec3(0,0,0), // Camera looks at (0,0,0)
+				glm::vec3(0,1,0) // Head is up [ (0,-1,0) would be upside-down)
+		);
+		// Model matrix (identity matrix -> model will be at the origin)
+		glm::mat4 model = glm::mat4(1.0f);
+		// Rotate model
+		model = glm::rotate(model, myAngle, glm::vec3(0,1,0));
+		if ( myAngle < 3.141593f ) {
+			myAngle += 0.1f;
+		} else if ( rotations < 5 ){
+			rotations++;
+			myAngle = 0.0f;
+		}
+
+		// ModelViewProjection-Matrix
+		glm::mat4 mvp = projection * view * model;
+		// Send Matrix to the shader
+		GLuint MatrixID = glGetUniformLocation(shader.getShaderProgramID(), "mvp");
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 
 		// TO BE EXPORTED INTO A MESH CLASS
 		// DRAWING A TRIANGLE
