@@ -35,6 +35,11 @@ Window::Window(int width, int height, std::string title) {
 		// TODO Error Handling (GLEW failed to initialise)
 	}
 	m_isClosed = false;
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it is closer to the camera then the former one
+	glDepthFunc(GL_LESS);
 }
 
 Window::~Window() {
