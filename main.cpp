@@ -11,6 +11,9 @@
 #include "m_classes/shader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/transform.hpp>
+
+// TODO IMPORTANT: SORT ALL THIS DRAWING STUFF OUT AND MOVE IT IN SEPERATE CLASSES
 
 
 int main(int argc, char **argv) {
@@ -145,6 +148,8 @@ int main(int argc, char **argv) {
 
 	float myAngle = 0.0f;
 	int rotations = 2;
+	float movementPosX = -1.0;
+	bool movingForward = true;
 
 	while ( !m_window.IsClosed() ) {
 		//m_window.Clear(0.0f, 0.15f, 0.3f, 1.0f); // blue
@@ -163,6 +168,22 @@ int main(int argc, char **argv) {
 		);
 		// Model matrix (identity matrix -> model will be at the origin)
 		glm::mat4 model = glm::mat4(1.0f);
+		// Move Model
+		glm::mat4 translateMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(movementPosX, 0.0f, 0.0f));
+		if ( movingForward == true ) {
+			if ( movementPosX <= 1.0 ) {
+				movementPosX += 0.01;
+			} else {
+				movingForward = false;
+			}
+		} else {
+			if ( movementPosX >= -1.0 ) {
+				movementPosX -= 0.01;
+			} else {
+				movingForward = true;
+			}
+		}
+		model = translateMatrix * model;
 		// Rotate model
 		model = glm::rotate(model, myAngle, glm::vec3(0,1,0));
 		if ( myAngle < 6.28318f && rotations > 0) {
@@ -196,7 +217,7 @@ int main(int argc, char **argv) {
 		glDrawArrays(GL_TRIANGLES, 0, 12*3); // Starting from vertex 0; 3 vertices
 
 		// Draw Platform under Cube
-		mvp = projection * view * glm::mat4(1.0f);
+		mvp = projection * view;
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 		glDrawArrays(GL_TRIANGLES, 36, 6);
 		glDisableVertexAttribArray(0);
