@@ -3,11 +3,11 @@
 layout(location = 0) in vec3 vertexPosition;
 //layout(location = 1) in vec3 vertexColor;
 //out vec3 fragmentColor;
-//uniform mat4 mvp;
+uniform mat4 vp; // View-Projection-Matrix
+uniform mat4 tm; // Transformation-Matrix
 
 void main() {
 	vec4 v = vec4(vertexPosition, 1);
-	//gl_Position = mvp * v;
+	gl_Position = vp * tm * v;
 	//fragmentColor = vertexColor;
-	gl_Position = v;
 }

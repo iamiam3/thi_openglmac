@@ -11,7 +11,8 @@
 #include <GL/glew.h>
 #include "object.h"
 #include <vector>
-// Tmp include
+#include <glm/glm.hpp>
+// tmp
 #include <iostream>
 
 class Mesh {
@@ -19,14 +20,20 @@ public:
 	Mesh(GLuint p_shaderProgramID);
 	virtual ~Mesh();
 
-	void updateMesh();
+	void setProjectionMatrix(glm::mat4 p_matrix);
+	void setViewMatrix(glm::mat4 p_matrix);
 	void drawMesh();
 	void addObject(Object* p_objectPointer);
+	void addGrid();
 private:
-	std::vector<glm::vec3> mc_combinedVertices;
 	GLuint mc_vertexBufferObject;
 	GLuint mc_shaderProgramID;
 	std::vector<Object*> mc_objectList;
+	glm::mat4 mc_viewProjectionMatrix;
+	glm::mat4 mc_viewMatrix;
+	glm::mat4 mc_projectionMatrix;
+
+	void updateViewProjectionMatrix();
 };
 
 #endif /* MESH_H_ */
