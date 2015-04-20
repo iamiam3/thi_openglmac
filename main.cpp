@@ -9,6 +9,8 @@
 #include "m_classes/window.h"
 #include "m_classes/vertex.h"
 #include "m_classes/shader.h"
+#include "m_classes/object.h"
+#include "m_classes/mesh.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/transform.hpp>
@@ -20,9 +22,20 @@ int main(int argc, char **argv) {
 
 	Window m_window(1024,768,"THI - Seminar - OpenGL Beispiel");
 
-	Shader shader("./res/basicShader");
+	Shader m_shader("./res/basicShader");
 
-	// TODO MESH CLASS
+	std::vector<glm::vec3> m_triangleVertices;
+	m_triangleVertices.push_back(glm::vec3(-1.0f, 0.0f, 0.0f));
+	m_triangleVertices.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	m_triangleVertices.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+
+	Object m_triangleObject(m_triangleVertices, glm::vec3(0,0,0));
+
+	Mesh m_mesh(m_shader.getShaderProgramID());
+
+	m_mesh.addObject(&m_triangleObject);
+
+	/*// TODO MESH CLASS
 	// TO BE EXPORTED INTO A MESH CLASS
 	// DRAWING A TRIANGLE
 	//#######################################################
@@ -33,9 +46,9 @@ int main(int argc, char **argv) {
 	// Set vertexArrayObject as current VAO
 	glBindVertexArray(vertexArrayObject);
 
-	/*Vertex vertices[] = { 	Vertex(glm::vec3(-1.0f, -1.0f, 0.0f)),
+	Vertex vertices[] = { 	Vertex(glm::vec3(-1.0f, -1.0f, 0.0f)),
 							Vertex(glm::vec3(1.0f, -1.0f, 0.0f)),
-							Vertex(glm::vec3(0.0f, 1.0f, 0.0f)) };*/
+							Vertex(glm::vec3(0.0f, 1.0f, 0.0f)) };
 
 	static const GLfloat vertices[] = {
 			    -1.0f,-1.0f,-1.0f, // triangle 1 : begin
@@ -146,18 +159,22 @@ int main(int argc, char **argv) {
 
 
 
+	// could also use static inside the while loop
 	float myAngle = 0.0f;
 	int rotations = 2;
 	float movementPosX = -1.0;
-	bool movingForward = true;
+	bool movingForward = true;*/
 
 	while ( !m_window.IsClosed() ) {
 		//m_window.Clear(0.0f, 0.15f, 0.3f, 1.0f); // blue
 		m_window.Clear(0.5f, 0.5f, 0.5f, 0.5f); // white
 
-		shader.Bind();
+		m_shader.Bind();
 
-		// TRANSFORMATION
+		//im_triangleObject.moveBy(glm::vec3(0,0,1));
+
+		m_mesh.drawMesh();
+		/*// TRANSFORMATION
 		// Projection matrix
 		glm::mat4 projection = glm::perspective(20.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 		// Camera matrix
@@ -222,7 +239,7 @@ int main(int argc, char **argv) {
 		glDrawArrays(GL_TRIANGLES, 36, 6);
 		glDisableVertexAttribArray(0);
 
-		//#######################################################
+		//#######################################################*/
 
 		m_window.Update();
 	}
