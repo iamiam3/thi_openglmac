@@ -146,7 +146,6 @@ void Object::scaleBy(glm::vec3 p_scale) {
 void Object::rotateBy(int p_degrees, glm::vec3 p_rotationAxis) {
 	// degrees to rad
 	float m_radDegrees = p_degrees * M_PI / 180;
-	//model = glm::rotate(model, myAngle, glm::vec3(0,1,0));
 	mc_rotationMatrix = glm::rotate(mc_rotationMatrix, m_radDegrees, p_rotationAxis);
 	updateTranslationMatrix();
 }

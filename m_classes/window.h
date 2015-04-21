@@ -11,8 +11,6 @@
 #include <String>
 #include <GL/glew.h>
 #include <glfw/glfw3.h>
-//tmp includes
-//#include <iostream>
 
 class Window {
 public:
