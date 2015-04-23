@@ -71,3 +71,7 @@ void Window::Update() {
 		m_isClosed = true;
 	}
 }
+
+GLFWwindow* Window::getWindowPointer() {
+	return m_window;
+}

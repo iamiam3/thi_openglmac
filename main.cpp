@@ -10,6 +10,7 @@
 #include "m_classes/shader.h"
 #include "m_classes/object.h"
 #include "m_classes/mesh.h"
+#include "m_classes/controller.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/transform.hpp>
@@ -38,12 +39,16 @@ int main(int argc, char **argv) {
 
 	Mesh m_mesh(m_shader.getShaderProgramID());
 
+	Controller m_controller(&m_window, &m_mesh);
+
 	m_mesh.addObject(&loadedObject);
 
 	m_mesh.addGrid();
 
 	/*m_mesh.addObject(&m_triangleObject);
 	m_mesh.addObject(&m_triangleObject2);*/
+
+	double m_time = glfwGetTime();
 
 	while ( !m_window.IsClosed() ) {
 		//m_window.Clear(0.0f, 0.15f, 0.3f, 1.0f); // blue
@@ -59,6 +64,11 @@ int main(int argc, char **argv) {
 		m_mesh.drawMesh();
 
 		m_window.Update();
+
+		m_controller.checkInput();
+
+		//m_mesh.setDeltaTime(float(glfwGetTime()-m_time));
+		m_time = glfwGetTime();
 	}
 
 	return 0;

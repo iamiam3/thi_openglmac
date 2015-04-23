@@ -8,18 +8,6 @@
 #include "mesh.h"
 
 Mesh::Mesh(GLuint p_shaderProgramID) {
-	// Reset matrices == set view projection matrices to identity matrices
-	mc_viewProjectionMatrix = glm::mat4(1.0f);
-	mc_viewMatrix = glm::mat4(1.0f);
-	mc_projectionMatrix = glm::mat4(1.0f);
-	// Set initial view settings
-	mc_projectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-	mc_viewMatrix = glm::lookAt(
-			glm::vec3(6,3,5),
-			glm::vec3(0,0,0),
-			glm::vec3(0,1,0)
-	);
-
 	// Save shader program ID
 	mc_shaderProgramID = p_shaderProgramID;
 
@@ -97,10 +85,12 @@ void Mesh::updateViewProjectionMatrix() {
 	mc_viewProjectionMatrix = mc_projectionMatrix * mc_viewMatrix;
 }
 
-void Mesh::setProjectionMatrix(glm::mat4 p_matrix) {
-
+void Mesh::setViewMatrix(glm::mat4 p_viewMatrix) {
+	mc_viewMatrix = p_viewMatrix;
+	updateViewProjectionMatrix();
 }
 
-void Mesh::setViewMatrix(glm::mat4 p_matrix) {
-
+void Mesh::setProjectionMatrix(glm::mat4 p_projectionMatrix) {
+	mc_projectionMatrix = p_projectionMatrix;
+	updateViewProjectionMatrix();
 }

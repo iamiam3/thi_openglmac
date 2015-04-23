@@ -12,6 +12,8 @@
 #include "object.h"
 #include <vector>
 #include <glm/glm.hpp>
+#include "window.h"
+//#include "directionEnum.h"
 // tmp
 #include <iostream>
 
@@ -20,8 +22,9 @@ public:
 	Mesh(GLuint p_shaderProgramID);
 	virtual ~Mesh();
 
-	void setProjectionMatrix(glm::mat4 p_matrix);
-	void setViewMatrix(glm::mat4 p_matrix);
+	void setViewMatrix(glm::mat4 p_viewMatrix);
+	void setProjectionMatrix(glm::mat4 p_projectionMatrix);
+
 	void drawMesh();
 	void addObject(Object* p_objectPointer);
 	void addGrid();
