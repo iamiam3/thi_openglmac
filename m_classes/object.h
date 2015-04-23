@@ -43,8 +43,10 @@ private:
 	glm::mat4 mc_rotationMatrix;
 	glm::mat4 mc_scaleMatrix;
 	GLenum mc_vertexType;
+	bool mc_hasMaterials;
 
 	void updateTranslationMatrix();
+	void loadVerticesFromFile(const std::string p_fileName);
 };
 
 #endif /* OBJECT_H_ */

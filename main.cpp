@@ -33,15 +33,19 @@ int main(int argc, char **argv) {
 	m_triangleVertices2.push_back(glm::vec3(-0.5f, 0.0f, 0.0f));
 	Object m_triangleObject2(m_triangleVertices2, glm::vec3(0,0,0), GL_TRIANGLES);*/
 
-	Object loadedObject("./res/logo.obj", glm::vec3(0,1,0));
-	loadedObject.setColor(0.0f, 0.0f, 0.9f);
-	loadedObject.scaleBy(glm::vec3(0.2f,0.2f,0.2f));
+	Object logoObject("./res/logo.obj", glm::vec3(0,1,0));
+	logoObject.setColor(0.0f, 0.0f, 0.9f);
+	logoObject.scaleBy(glm::vec3(0.2f,0.2f,0.2f));
+
+//	Object treeObject("./res/tree.obj", glm::vec3(0,1,0));
+//	treeObject.setColor(1.0f,1.0f, 1.0f);
 
 	Mesh m_mesh(m_shader.getShaderProgramID());
 
 	Controller m_controller(&m_window, &m_mesh);
 
-	m_mesh.addObject(&loadedObject);
+	m_mesh.addObject(&logoObject);
+//	m_mesh.addObject(&treeObject);
 
 	m_mesh.addGrid();
 
@@ -59,7 +63,7 @@ int main(int argc, char **argv) {
 
 		/*m_triangleObject.rotateBy(1, glm::vec3(0,1,0));
 		m_triangleObject2.rotateBy(1, glm::vec3(0,1,0));*/
-		loadedObject.rotateBy(1, glm::vec3(0,1,0));
+//		logoObject.rotateBy(1, glm::vec3(0,1,0));
 
 		m_mesh.drawMesh();
 
