@@ -16,7 +16,7 @@ Controller::Controller(Window* p_windowPointer, Mesh* p_meshPointer) {
 	mc_verticalAngleBuffer = mc_verticalAngle;
 	mc_fov = 45.0f; // in degree
 	mc_speed = 6.0f; // 3 unites / s
-	mc_mousespeed = 0.1f;
+	mc_mousespeed = 0.005f;
 	mc_deltaTime = 0.02f;
 	mc_viewDirection = glm::vec3(
 			cos(mc_verticalAngle) * sin(mc_horizontalAngle),
@@ -51,7 +51,6 @@ void Controller::checkInput() {
 		mc_fov += 0.02;
 	}
 
-
 	// Orientation
 	if (glfwGetMouseButton(mc_windowPointer->getWindowPointer(), GLFW_MOUSE_BUTTON_2) == GLFW_PRESS) {
 		// If right mouse button is pressed: rotate on mouse movement
@@ -80,6 +79,12 @@ void Controller::checkInput() {
 			|| glfwGetKey(mc_windowPointer->getWindowPointer(), GLFW_KEY_A) == GLFW_PRESS) {
 		mc_position -= mc_right * mc_deltaTime * mc_speed;
 	}
+	if (glfwGetKey(mc_windowPointer->getWindowPointer(), GLFW_KEY_T) == GLFW_PRESS) {
+		mc_position += mc_viewDirection * mc_deltaTime * mc_speed * 10.0f;
+	}
+	if (glfwGetKey(mc_windowPointer->getWindowPointer(), GLFW_KEY_G) == GLFW_PRESS) {
+		mc_position -= mc_viewDirection * mc_deltaTime * mc_speed * 10.0f;
+	}
 	updateViewMatrix();
 	updateProjectionMatrix();
 }
@@ -99,8 +104,8 @@ void Controller::updateViewMatrix() {
 void Controller::updateOrientation() {
 	double m_mousePosX, m_mousePosY;
 	glfwGetCursorPos(mc_windowPointer->getWindowPointer(), &m_mousePosX, &m_mousePosY);
-	mc_horizontalAngle = mc_horizontalAngleBuffer + mc_mousespeed * mc_deltaTime * float(mc_mousePosBufferX - m_mousePosX);
-	mc_verticalAngle = mc_verticalAngleBuffer + mc_mousespeed * mc_deltaTime * float(mc_mousePosBufferY - m_mousePosY);
+	mc_horizontalAngle = mc_horizontalAngleBuffer + mc_mousespeed * float(mc_mousePosBufferX - m_mousePosX);
+	mc_verticalAngle = mc_verticalAngleBuffer + mc_mousespeed * float(mc_mousePosBufferY - m_mousePosY);
 	mc_viewDirection = glm::vec3(
 			cos(mc_verticalAngle) * sin(mc_horizontalAngle),
 			sin(mc_verticalAngle),

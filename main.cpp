@@ -15,6 +15,7 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/transform.hpp>
 
+
 int main(int argc, char **argv) {
 
 	Window m_window(800,600,"THI - Seminar - OpenGL Beispiel");
@@ -35,7 +36,7 @@ int main(int argc, char **argv) {
 
 	Object logoObject("./res/logo.obj", glm::vec3(0,1,0));
 	logoObject.setColor(0.0f, 0.0f, 0.9f);
-	logoObject.scaleBy(glm::vec3(0.2f,0.2f,0.2f));
+	logoObject.scaleBy(glm::vec3(0.4f,0.4f,0.4f));
 
 //	Object treeObject("./res/tree.obj", glm::vec3(0,1,0));
 //	treeObject.setColor(1.0f,1.0f, 1.0f);
@@ -63,7 +64,7 @@ int main(int argc, char **argv) {
 
 		/*m_triangleObject.rotateBy(1, glm::vec3(0,1,0));
 		m_triangleObject2.rotateBy(1, glm::vec3(0,1,0));*/
-//		logoObject.rotateBy(1, glm::vec3(0,1,0));
+		logoObject.rotateBy(1, glm::vec3(0,1,0));
 
 		m_mesh.drawMesh();
 
@@ -71,8 +72,11 @@ int main(int argc, char **argv) {
 
 		m_controller.checkInput();
 
-		//m_mesh.setDeltaTime(float(glfwGetTime()-m_time));
+		m_controller.setDeltaTime(float(glfwGetTime()-m_time));
 		m_time = glfwGetTime();
+
+
+
 	}
 
 	return 0;
