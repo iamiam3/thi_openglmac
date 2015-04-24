@@ -50,6 +50,8 @@ void Mesh::drawMesh() {
 			GLuint m_vectorID = glGetUniformLocation(mc_shaderProgramID, "cv");
 			glUniform3fv(m_vectorID, 1, mc_objectList[i]->getColor());
 
+			//std::cout << mc_objectList[i]->getVertices().size() << std::endl;
+
 			// Draw objects
 			glDrawArrays(
 					mc_objectList[i]->getVertexType(),

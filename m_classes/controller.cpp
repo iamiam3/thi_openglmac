@@ -85,6 +85,7 @@ void Controller::checkInput() {
 	if (glfwGetKey(mc_windowPointer->getWindowPointer(), GLFW_KEY_G) == GLFW_PRESS) {
 		mc_position -= mc_viewDirection * mc_deltaTime * mc_speed * 10.0f;
 	}
+
 	updateViewMatrix();
 	updateProjectionMatrix();
 }

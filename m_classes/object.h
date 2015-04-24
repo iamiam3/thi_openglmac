@@ -26,6 +26,7 @@ public:
 
 	void moveBy(glm::vec3 p_position);
 	void moveTo(glm::vec3 p_position);
+	void scaleTo(glm::vec3 p_scale);
 	void scaleBy(glm::vec3 p_scale);
 	void rotateBy(int p_degrees, glm::vec3 p_rotationAxis);
 

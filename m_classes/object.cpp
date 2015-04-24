@@ -142,6 +142,11 @@ std::vector<glm::vec3> Object::getVertices() {
 }
 
 void Object::scaleBy(glm::vec3 p_scale) {
+	mc_scaleMatrix = glm::scale(p_scale) * mc_scaleMatrix;
+	updateTranslationMatrix();
+}
+
+void Object::scaleTo(glm::vec3 p_scale) {
 	mc_scaleMatrix = glm::scale(p_scale);
 	updateTranslationMatrix();
 }
