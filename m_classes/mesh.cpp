@@ -43,9 +43,11 @@ void Mesh::drawMesh() {
 			// Send viewProjection-matrix to vertex shader
 			GLuint m_matrixID = glGetUniformLocation(mc_shaderProgramID, "vp");
 			glUniformMatrix4fv(m_matrixID, 1, GL_FALSE, &mc_viewProjectionMatrix[0][0]);
+
 			// Send translation matrix to vertex shader
 			m_matrixID = glGetUniformLocation(mc_shaderProgramID, "tm");
 			glUniformMatrix4fv(m_matrixID, 1, GL_FALSE, &mc_objectList[i]->getTransformationMatrix()[0][0]);
+
 			// Send color vector to fragment shader
 			GLuint m_vectorID = glGetUniformLocation(mc_shaderProgramID, "cv");
 			glUniform3fv(m_vectorID, 1, mc_objectList[i]->getColor());

@@ -21,6 +21,11 @@ int main(int argc, char **argv) {
 
 	Shader m_shader("./res/basicShader");
 
+	Mesh m_mesh(m_shader.getShaderProgramID());
+	m_mesh.addGrid();
+
+	Controller m_controller(&m_window, &m_mesh);
+
 	/*std::vector<glm::vec3> m_triangleVertices;
 	m_triangleVertices.push_back(glm::vec3(-0.5f, 0.0f, 0.0f));
 	m_triangleVertices.push_back(glm::vec3(-0.5f, 1.0f, 0.0f));
@@ -40,14 +45,8 @@ int main(int argc, char **argv) {
 //	Object treeObject("./res/tree.obj", glm::vec3(0,1,0));
 //	treeObject.setColor(1.0f,1.0f, 1.0f);
 
-	Mesh m_mesh(m_shader.getShaderProgramID());
-
-	Controller m_controller(&m_window, &m_mesh);
-
 	m_mesh.addObject(&logoObject);
 //	m_mesh.addObject(&treeObject);
-
-	m_mesh.addGrid();
 
 	/*m_mesh.addObject(&m_triangleObject);
 	m_mesh.addObject(&m_triangleObject2);*/
@@ -71,11 +70,11 @@ int main(int argc, char **argv) {
 			logoObject.scaleBy(glm::vec3(0.99f, 0.99f, 0.99f));
 		}
 
+		m_controller.checkInput();
+
 		m_mesh.drawMesh();
 
 		m_window.Update();
-
-		m_controller.checkInput();
 
 		m_controller.setDeltaTime(float(glfwGetTime()-m_time));
 
