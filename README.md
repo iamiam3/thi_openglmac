@@ -1,5 +1,5 @@
-Beispielprogramm für Seminarvortrag
-===================================
+Beispielprogramm für Seminarvortrag an der THI
+==============================================
 
 + Auf dem Mac geschrieben. 
 Sollte auch auf Linux funktionieren, solange die libraries alle installiert und richtig gelinkt sind.
